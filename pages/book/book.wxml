@@ -1,0 +1,5 @@
+<!-- pages/book/book.wxml -->
+<!-- <text>pages/book/book.wxml</text> -->
+<view>
+  <view wx:for="{{list}}" data-url="{{item.href}}" bindtap="openActicle">{{item.name}}</view>
+</view>

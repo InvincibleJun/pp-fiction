@@ -1,0 +1,10 @@
+<view>
+  <view class="title">{{name}}</view>
+  <view class="content">
+    <text>{{content}}</text>
+  </view>
+  <view>
+    <button type="primary" size="mini" bindtap="prevArticle">上一章</button>
+    <button type="primary" size="mini" bindtap="nextArticle">下一章</button>
+  </view>
+</view>
