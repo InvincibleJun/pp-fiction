@@ -7,13 +7,24 @@ function request(url, option) {
     });
   }
 
-  url = 'http://localhost:8888' + url;
+  if (query) {
+    url +=
+      '?' +
+      Object.keys(query)
+        .map(
+          key => encodeURIComponent(key) + '=' + encodeURIComponent(query[key])
+        )
+        .join('&');
+  }
+
+  url = 'https://fiction.applinzi.com' + url;
+  // url = 'http://localhost:5050' + url;
 
   return new Promise((resolve, reject) => {
     wx.request({
       method,
       url,
-      data: {},
+      data,
       header: {
         'content-type': 'application/json'
       },

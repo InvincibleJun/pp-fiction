@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-bottom: 1rpx solid #FFCCFF;
 }
 
 .book-image {
@@ -11,11 +12,13 @@
   height: 128rpx;
   margin: 20rpx;
   border-radius: 4rpx;
+  font-size: 20rpx;
 }
 
 .book-item-right {
   display: flex;
   flex-direction: column;
+  font-size: 28rpx;
 }
 
 .userinfo-nickname {
@@ -24,4 +27,42 @@
 
 .usermotto {
   margin-top: 200px;
+}
+
+.userinfo{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.userinfo-avatar{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 40rpx;
+}
+
+.userinfo-nickname{
+  margin-left: 20rpx;
+  color: #333;
+  font-size: 32rpx;
+}
+
+.search-input{
+  font-size: 32rpx;
+  padding: 10rpx;
+  width: 500rpx;
+  margin: 10rpx auto;
+  border: 1px solid #FFCCFF;
+  border-radius: 20rpx;
+}
+
+.user-book{
+  display: flex;
+  flex-direction: column;
+  width: 200rpx;
+  height: 300rpx;
+}
+
+.word{
+  font-size: 32rpx;
 }

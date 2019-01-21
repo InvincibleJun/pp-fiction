@@ -3,20 +3,24 @@ const { openArticle } = require('../../services/fiction');
 
 Page({
   data: {
-    name: '',
-    content: '',
+    _id: '',
+    index: 0,
+    title: '',
+    article: '',
     next: null,
     prev: null
   },
 
-  onLoad: function({ url }) {
-    openArticle({ url: decodeURIComponent(url) }).then(
-      ({ next, prev, content, name }) => {
+  onLoad: function({ index, _id }) {
+    this.setData({ _id });
+    openArticle({ index }, { _id }).then(
+      ({ next, prev, article, title, index }) => {
         this.setData({
-          name,
+          index: +index,
+          title,
           next,
           prev,
-          content
+          article
         });
       }
     );
@@ -24,20 +28,20 @@ Page({
 
   prevArticle: function() {
     wx.navigateTo({
-      url: `../article/article?url=${encodeURIComponent(this.data.prev)}`
+      url: `../article/article?index=${--this.data.index}&_id=${this.data._id}`
     });
   },
 
   nextArticle: function() {
     wx.navigateTo({
-      url: `../article/article?url=${encodeURIComponent(this.data.next)}`
+      url: `../article/article?index=${++this.data.index}&_id=${this.data._id}`
     });
   },
 
   openActicle: function(event) {
-    const { url } = event.currentTarget.dataset;
+    const { index } = event.currentTarget.dataset;
     wx.navigateTo({
-      url: `../article/article?url=${encodeURIComponent(url)}`
+      url: `../article/article?url=${index}`
     });
   }
 });

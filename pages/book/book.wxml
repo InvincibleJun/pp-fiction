@@ -1,5 +1,24 @@
 <!-- pages/book/book.wxml -->
 <!-- <text>pages/book/book.wxml</text> -->
 <view>
-  <view wx:for="{{list}}" data-url="{{item.href}}" bindtap="openActicle">{{item.name}}</view>
+  <block wx:if="{{loaded}}">
+    <view class="top">
+      <image src="{{book.picture}}" class="cover" mode="cover" />
+      <view class="top-text">
+        <text>{{book.title}}</text>
+        <text>作者：{{book.auth}}</text>
+        <text>目前章节：{{book.count}}</text>
+        <button type="primary" size="mini" bindtap="addToUser">加入我的书架</button>
+      </view>
+    </view>
+    <view class="list">
+      <switch checked bindchange="sort" />
+      <view wx:for="{{showList}}" data-index="{{index}}" bindtap="openActicle">{{item}}</view>
+    </view>
+    <view class="page">
+      <view wx:for="{{pageArray}}" class="page-list {{page === index+1 ? 'page-active' : ''}}" bindtap="toPage" data-index="{{index}}">
+        {{index+1}}
+      </view>
+    </view>
+  </block>
 </view>

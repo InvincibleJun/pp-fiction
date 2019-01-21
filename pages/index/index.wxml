@@ -1,25 +1,29 @@
 <!-- index.wxml -->
 <view class="container">
-  <view>
-    <input placeholder="输入你想看的书籍" auto-focus bindconfirm="searchBooks" />
-  </view>
-  <view>
-    <view wx:for="{{result}}" class="book-item" data-id="{{item.id}}" bindtap="openBook">
-      <image src="{{item.pirture}}" class="book-image" mode="cover" />
-      <view class="book-item-right">
-        <text>{{item.title}}</text>
-        <text>{{item.auth}}</text>
-      </view>
-    </view>
-  </view>
-  <!-- <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
+  <view class="userinfo">
+    <!-- <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button> -->
+    <block>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block>
   </view>
-  <view class="usermotto">
+  <view>
+    <input placeholder="输入你想看的书籍" class="search-input" auto-focus bindconfirm="searchBooks" />
+  </view>
+  <view>
+    <view wx:for="{{result}}" class="book-item" data-title="{{item.title}}" data-id="{{item.id}}" bindtap="openBook">
+      <image src="{{item.pirture}}" class="book-image" mode="cover" />
+      <view class="book-item-right">
+        <text>{{item.title}}</text>
+        <text>作者：{{item.auth}}</text>
+      </view>
+    </view>
+  </view>
+  <view wx:for="{{books}}" class="user-book" data-title="{{item.title}}" data-id="{{books._id}}" bindtap="openBook">
+    <image src="{{item.picture}}" class="book-image" mode="cover" />
+    <view class="word">{{item.title}}</view>
+  </view>
+  <!-- <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
   </view> -->
 </view>

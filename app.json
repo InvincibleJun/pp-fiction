@@ -1,14 +1,17 @@
 {
-  "pages":[
+  "pages": [
     "pages/index/index",
     "pages/logs/logs",
     "pages/book/book",
     "pages/article/article"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "networkTimeout": {
+    "request": 60000
+  },
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle":"black"
+    "navigationBarTitleText": "看看看看",
+    "navigationBarTextStyle": "black"
   }
 }
