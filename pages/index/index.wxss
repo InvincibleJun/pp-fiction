@@ -8,8 +8,8 @@
 }
 
 .book-image {
-  width: 128rpx;
-  height: 128rpx;
+  width: 208rpx;
+  height: 308rpx;
   margin: 20rpx;
   border-radius: 4rpx;
   font-size: 20rpx;
@@ -57,12 +57,21 @@
 }
 
 .user-book{
+  margin: 10rpx;
   display: flex;
   flex-direction: column;
-  width: 200rpx;
-  height: 300rpx;
 }
 
 .word{
-  font-size: 32rpx;
+  text-align: center;
+  font-size: 28rpx;
+}
+
+.user-list{
+  display: flex;
+  flex-direction: row;
+}
+.tip {
+  margin-left: 20rpx;
+  font-size: 24rpx;
 }

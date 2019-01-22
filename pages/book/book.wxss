@@ -26,6 +26,7 @@
   height: 200rpx;
   display: flex;
   flex-direction: row;
+  font-size: 28rpx;
 }
 
 .top-text {
@@ -47,4 +48,11 @@
 .page-active {
   background-color: #ffccff;
   color: #fff;
+}
+
+.status{
+  height: 60rpx;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

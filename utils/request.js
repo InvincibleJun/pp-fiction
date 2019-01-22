@@ -17,8 +17,8 @@ function request(url, option) {
         .join('&');
   }
 
-  url = 'https://fiction.applinzi.com' + url;
-  // url = 'http://localhost:5050' + url;
+  // url = 'https://fiction.applinzi.com' + url;
+  url = 'http://localhost:5050' + url;
 
   return new Promise((resolve, reject) => {
     wx.request({

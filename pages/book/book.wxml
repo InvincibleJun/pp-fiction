@@ -7,7 +7,15 @@
       <view class="top-text">
         <text>{{book.title}}</text>
         <text>作者：{{book.auth}}</text>
-        <text>目前章节：{{book.count}}</text>
+        <!-- <text>目前章节：{{book.count}}</text> -->
+        <view wx:if="{{book.download}}" class="status">
+          <icon type="success" size="23" />
+          <text>已下载</text>
+        </view>
+        <view wx:else class="status">
+          <icon type="success" size="23" class="status" />
+          <text>正在下载</text>
+        </view>
         <button type="primary" size="mini" bindtap="addToUser">加入我的书架</button>
       </view>
     </view>

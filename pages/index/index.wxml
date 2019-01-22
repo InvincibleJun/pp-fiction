@@ -1,27 +1,30 @@
 <!-- index.wxml -->
 <view class="container">
   <view class="userinfo">
-    <!-- <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button> -->
     <block>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{props.userInfo.url}}" mode="cover"></image>
+      <text class="userinfo-nickname">{{props.userInfo.name}}</text>
     </block>
   </view>
   <view>
     <input placeholder="输入你想看的书籍" class="search-input" auto-focus bindconfirm="searchBooks" />
   </view>
   <view>
-    <view wx:for="{{result}}" class="book-item" data-title="{{item.title}}" data-id="{{item.id}}" bindtap="openBook">
-      <image src="{{item.pirture}}" class="book-image" mode="cover" />
+    <view wx:for="{{result}}" class="book-item" data-title="{{item.title}}" data-id="{{item._id}}" bindtap="openBook">
+      <image src="{{item.picture}}" class="book-image" mode="cover" />
       <view class="book-item-right">
         <text>{{item.title}}</text>
         <text>作者：{{item.auth}}</text>
       </view>
     </view>
   </view>
-  <view wx:for="{{books}}" class="user-book" data-title="{{item.title}}" data-id="{{books._id}}" bindtap="openBook">
-    <image src="{{item.picture}}" class="book-image" mode="cover" />
-    <view class="word">{{item.title}}</view>
+  <view class="user-list">
+    <view wx:for="{{props.books}}" class="user-book" data-title="{{item.bookId.title}}" data-id="{{books.bookId._id}}" data-index="{{books.index}}" bindtap="readBook">
+      <image src="{{item.bookId.picture}}" class="book-image" mode="cover" />
+      <view class="word">{{item.bookId.title}}</view>
+      <view class="tip" wx-if="{{item.index === -1}}">未阅读</view>
+      <view class="tip" wx:else>已阅读{{item.index+1}}篇</view>
+    </view>
   </view>
   <!-- <view class="usermotto">
     <text class="user-motto">{{motto}}</text>

@@ -2,7 +2,7 @@ const request = require('../utils/request.js');
 
 const addUser = data => request('/api/user', { data, method: 'POST' });
 
-const getUser = params => request('/api/user/:openid', { params });
+const getUserBooks = query => request('/api/user/book', { query });
 
 const addBook = data => request('/api/user', { data, method: 'PUT' });
 
@@ -11,6 +11,6 @@ const openArticle = (params, query) =>
 
 module.exports = {
   addUser,
-  getUser,
+  getUserBooks,
   addBook
 };
