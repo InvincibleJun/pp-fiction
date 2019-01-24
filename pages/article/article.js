@@ -1,41 +1,66 @@
-const util = require('../../utils/util.js');
-const { openArticle } = require('../../services/fiction');
+const util = require("../../utils/util.js");
+const { openArticle } = require("../../services/fiction");
 
 Page({
   data: {
-    _id: '',
+    _id: "",
     index: 0,
-    title: '',
-    article: '',
+    title: "",
+    article: "",
     next: null,
-    prev: null
+    prev: null,
+    name: ""
   },
 
   onLoad: function({ index, _id }) {
-    this.setData({ _id });
-    openArticle({ index }, { _id }).then(
-      ({ next, prev, article, title, index }) => {
-        this.setData({
-          index: +index,
-          title,
-          next,
-          prev,
-          article
-        });
+    this.setData({ _id }, () => {
+      this.init(index, _id);
+    });
+  },
+
+  init(index) {
+    wx.pageScrollTo({
+      scrollTop: 0,
+      duration: 100
+    });
+
+    openArticle({ index }, { _id: this.data._id }).then(
+      ({ next, prev, article, now, title, index }) => {
+        this.setData(
+          {
+            name: now.name,
+            index: +index,
+            title,
+            next,
+            prev,
+            article
+          },
+          () => {
+            wx.setNavigationBarTitle({
+              title
+            });
+          }
+        );
       }
     );
   },
 
-  prevArticle: function() {
+  toMenu: function() {
     wx.navigateTo({
-      url: `../article/article?index=${--this.data.index}&_id=${this.data._id}`
+      url: `../book/book?id=${this.data._id}&title=${this.data.title}`
     });
   },
 
+  prevArticle: function() {
+    this.init(--this.data.index);
+
+    // wx.navigateTo({
+    //   url: `../article/article?index=${--this.data.index}&_id=${this.data._id}`
+    // });
+  },
+
   nextArticle: function() {
-    wx.navigateTo({
-      url: `../article/article?index=${++this.data.index}&_id=${this.data._id}`
-    });
+    this.init(++this.data.index);
   },
 
   openActicle: function(event) {

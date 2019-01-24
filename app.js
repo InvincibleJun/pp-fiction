@@ -6,11 +6,11 @@ App(
   observer({
     props: require('./store/index.js').default,
 
-    globalData: {
-      userInfo: null
+    onLaunch: function() {
+      this.login();
     },
 
-    onLaunch: function() {
+    login() {
       login().then(userInfo => {
         this.props.init(userInfo);
       });

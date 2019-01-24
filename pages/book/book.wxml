@@ -8,25 +8,36 @@
         <text>{{book.title}}</text>
         <text>作者：{{book.auth}}</text>
         <!-- <text>目前章节：{{book.count}}</text> -->
-        <view wx:if="{{book.download}}" class="status">
+        <view wx:if="{{download}}" class="status">
           <icon type="success" size="23" />
           <text>已下载</text>
         </view>
         <view wx:else class="status">
-          <icon type="success" size="23" class="status" />
+          <icon type="info" size="23" class="status" />
           <text>正在下载</text>
         </view>
         <button type="primary" size="mini" bindtap="addToUser">加入我的书架</button>
       </view>
     </view>
     <view class="list">
-      <switch checked bindchange="sort" />
-      <view wx:for="{{showList}}" data-index="{{index}}" bindtap="openActicle">{{item}}</view>
+      <!-- <i-cell wx:for="{{result}}" data-title="{{item.title}}" data-id="{{item._id}}" bindtap="openBook">
+        <view class="book-item">
+          <image src="{{item.picture}}" class="book-image" mode="cover" />
+          <view class="book-item-right">
+            <text>{{item.title}}</text>
+            <text>作者：{{item.auth}}</text>
+          </view>
+        </view>
+      </i-cell> -->
+      <!-- <switch checked bindchange="sort" /> -->
+      <i-cell wx:for="{{showList}}">
+        <view class="list-item" data-index="{{index}}" bindtap="openActicle">{{item.name}}</view>
+      </i-cell>
     </view>
-    <view class="page">
-      <view wx:for="{{pageArray}}" class="page-list {{page === index+1 ? 'page-active' : ''}}" bindtap="toPage" data-index="{{index}}">
-        {{index+1}}
-      </view>
-    </view>
+    <i-page current="{{page}}" total="{{count}}" bind:change="toPage">
+      <view slot="prev">上一页</view>
+      <view slot="next">下一页</view>
+    </i-page>
+    <view class="bottom"></view>
   </block>
 </view>

@@ -3,6 +3,7 @@
 import { observer } from '../../libs/observer';
 import { searchFiction } from '../../services/fiction';
 import { getUserBooks } from '../../services/user';
+// import login from '../utils/login';
 
 const app = getApp();
 
@@ -11,51 +12,65 @@ Page(
     props: require('../../store/index.js').default,
 
     data: {
+      canIUse: wx.canIUse('button.open-type.getUserInfo'),
+      loading: false,
+      value: '',
+      state: 'my',
       result: [],
       userInfo: {},
       hasUserInfo: false
     },
-    //事件处理函数
-    bindViewTap: function() {
-      wx.navigateTo({
-        url: '../logs/logs'
+    onLoad() {
+      const { windowHeight } = wx.getSystemInfoSync();
+      let boxHeight = windowHeight - 50;
+      this.setData({
+        boxHeight: boxHeight
       });
     },
-    onLoad: function() {
-      //     if (app.globalData.userInfo) {
-      // this.init();
-      // } else {
-      // app.globalData.init = () => {
-      // this.init();
-      // };
-      // }
+    onShow: function() {
+      getUserBooks().then(res => {
+        this.props.setBooks(res.books);
+      });
     },
-    init: function(e) {
-      // this.setData({
-      //   userInfo: app.globalData.userInfo,
-      //   hasUserInfo: true,
-      // });
-    },
+    init: function(e) {},
 
-    searchBooks: function({ detail }) {
-      searchFiction({ key: detail.value }).then(res => {
-        this.setData({ result: res });
+    inputChange(event) {
+      this.setData({
+        value: event.detail.detail.value
+      });
+    },
+    searchBooks: function() {
+      this.setData({ loading: true });
+      searchFiction({ key: this.data.value }).then(res => {
+        this.setData({ result: res, loading: false });
       });
     },
 
     readBook: function(event) {
       const { index, id, title } = event.currentTarget.dataset;
+
       wx.navigateTo({
         url: `../article/article?index=${index === -1 ? 0 : index}&_id=${id}`
       });
     },
 
+    deleteBook: function(event) {
+      const { id } = event.currentTarget.dataset;
+      console.log(event.currentTarget.dataset);
+      // deleteBookService({ id }).then(res => {});
+    },
+    tabChange: function(event) {
+      const { key } = event.detail;
+      this.setData({ state: key });
+    },
     openBook: function(event) {
       const { id, title } = event.currentTarget.dataset;
-
       wx.navigateTo({
         url: `../book/book?id=${id}&title=${title}`
       });
+    },
+    getUserInfo: function(event) {
+      app.login();
     }
   })
 );

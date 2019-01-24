@@ -1,6 +1,6 @@
 function request(url, option) {
-  const { method = 'GET', data, query, params } = option;
-
+  const { method = "GET", data, query, params } = option;
+  const { openid } = wx.getStorageSync("userInfo");
   if (params) {
     url = url.replace(/\:([\w]+)/g, (word, $1) => {
       return params[$1] ? encodeURIComponent(params[$1]) : word;
@@ -9,16 +9,16 @@ function request(url, option) {
 
   if (query) {
     url +=
-      '?' +
+      "?" +
       Object.keys(query)
         .map(
-          key => encodeURIComponent(key) + '=' + encodeURIComponent(query[key])
+          key => encodeURIComponent(key) + "=" + encodeURIComponent(query[key])
         )
-        .join('&');
+        .join("&");
   }
 
-  // url = 'https://fiction.applinzi.com' + url;
-  url = 'http://localhost:5050' + url;
+  url = 'https://fiction.applinzi.com' + url;
+  // url = "http://localhost:8888" + url;
 
   return new Promise((resolve, reject) => {
     wx.request({
@@ -26,7 +26,8 @@ function request(url, option) {
       url,
       data,
       header: {
-        'content-type': 'application/json'
+        openid,
+        "content-type": "application/json"
       },
       success(res) {
         resolve(res.data);

@@ -1,32 +1,56 @@
 <!-- index.wxml -->
-<view class="container">
-  <view class="userinfo">
-    <block>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{props.userInfo.url}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{props.userInfo.name}}</text>
-    </block>
+<view>
+  <view class="wait" wx:if="{{!props.userInfo}}">
+    <image src="http://hbimg.b0.upaiyun.com/48ffe5c6428e89286d7c951c272e47e14bc35c5939b132-TIGp6T_fw658" class="wait-image" />
+    <i-button open-type="getUserInfo" bindgetuserinfo="getUserInfo" type="primary">登录</i-button>
   </view>
-  <view>
-    <input placeholder="输入你想看的书籍" class="search-input" auto-focus bindconfirm="searchBooks" />
-  </view>
-  <view>
-    <view wx:for="{{result}}" class="book-item" data-title="{{item.title}}" data-id="{{item._id}}" bindtap="openBook">
-      <image src="{{item.picture}}" class="book-image" mode="cover" />
-      <view class="book-item-right">
-        <text>{{item.title}}</text>
-        <text>作者：{{item.auth}}</text>
+  <view wx:else>
+    <scroll-view scroll-y style='height:{{boxHeight}}px;' class="content">
+      <view wx:if="{{state === 'my'}}">
+        <i-card title="{{props.userInfo.name}}" extra="good morning" thumb="{{props.userInfo.url}}">
+          <view slot="content" class="user-list" wx:if="{{props.books.length>0}}">
+            <view wx:for="{{props.books}}" class="user-book" bindlongpress="deleteBook" data-title="{{item.bookId.title}}" data-id="{{item.bookId._id}}" data-index="{{item.index}}" bindtap="readBook">
+              <image src="{{item.bookId.picture}}" class="book-image" mode="cover" />
+              <view class="word">{{item.bookId.title}}</view>
+              <view class="tip" wx-if="{{item.index === -1}}">未阅读</view>
+              <view class="tip" wx:else>已阅读{{item.index+1}}篇</view>
+            </view>
+          </view>
+          <view slot="content" class="no-book" wx:else>
+            <i-icon type="delete" size="28" color="#80848f" />
+            <text>暂无书籍</text>
+          </view>
+        </i-card>
       </view>
+      <view wx:else>
+        <view class="search">
+          <view class="input-box">
+            <i-input value="{{value}}" maxlength="100" type="text" mode="wrapped" bind:change="inputChange" placeholder="请输入书籍" />
+          </view>
+          <i-button bind:click="searchBooks" inline type="primary" size="default">查询</i-button>
+        </view>
+        <view class="loading" wx:if="{{loading}}">
+          <i-spin size="large"></i-spin>
+        </view>
+        <i-cell-group>
+          <i-cell wx:for="{{result}}" data-title="{{item.title}}" data-id="{{item._id}}" bindtap="openBook">
+            <view class="book-item">
+              <image src="{{item.picture}}" class="book-image" mode="cover" />
+              <view class="book-item-right">
+                <text>{{item.title}}</text>
+                <text>作者：{{item.auth}}</text>
+              </view>
+            </view>
+          </i-cell>
+        </i-cell-group>
+      </view>
+    </scroll-view>
+    <view class="bottom">
+      <i-tab-bar current="{{state}}" bindchange="tabChange">
+        <i-tab-bar-item key="my" icon="homepage" current-icon="homepage_fill" title="书架"></i-tab-bar-item>
+        <i-tab-bar-item key="search" icon="search" current-icon="searchfill" title="搜索"></i-tab-bar-item>
+      </i-tab-bar>
     </view>
   </view>
-  <view class="user-list">
-    <view wx:for="{{props.books}}" class="user-book" data-title="{{item.bookId.title}}" data-id="{{books.bookId._id}}" data-index="{{books.index}}" bindtap="readBook">
-      <image src="{{item.bookId.picture}}" class="book-image" mode="cover" />
-      <view class="word">{{item.bookId.title}}</view>
-      <view class="tip" wx-if="{{item.index === -1}}">未阅读</view>
-      <view class="tip" wx:else>已阅读{{item.index+1}}篇</view>
-    </view>
-  </view>
-  <!-- <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view> -->
+  <i-toast id="toast" />
 </view>
