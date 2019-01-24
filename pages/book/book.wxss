@@ -56,6 +56,10 @@
   align-items: center;
 }
 
+.status icon {
+  margin-right: 10rpx;
+}
+
 .list{
   padding: 20rpx;
 }

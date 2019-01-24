@@ -18,7 +18,13 @@ Page(
       state: 'my',
       result: [],
       userInfo: {},
-      hasUserInfo: false
+      hasUserInfo: false,
+      visible: true
+    },
+    closeRight() {
+      this.setData({
+        visible: false
+      })
     },
     onLoad() {
       const { windowHeight } = wx.getSystemInfoSync();

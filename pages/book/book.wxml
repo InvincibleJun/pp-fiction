@@ -13,7 +13,7 @@
           <text>已下载</text>
         </view>
         <view wx:else class="status">
-          <icon type="info" size="23" class="status" />
+          <icon type="info" size="23" />
           <text>正在下载</text>
         </view>
         <button type="primary" size="mini" bindtap="addToUser">加入我的书架</button>

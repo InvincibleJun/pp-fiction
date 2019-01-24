@@ -124,3 +124,10 @@
   margin-left: 20rpx;
   font-size: 24rpx;
 }
+
+.right-container{
+  display: flex;
+  background-color: #ffffff;
+  height: 100vh;
+  width: 200px;
+}

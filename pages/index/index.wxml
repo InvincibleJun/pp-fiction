@@ -7,7 +7,7 @@
   <view wx:else>
     <scroll-view scroll-y style='height:{{boxHeight}}px;' class="content">
       <view wx:if="{{state === 'my'}}">
-        <i-card title="{{props.userInfo.name}}" extra="good morning" thumb="{{props.userInfo.url}}">
+        <i-card title="{{props.userInfo.name}}" thumb="{{props.userInfo.url}}">
           <view slot="content" class="user-list" wx:if="{{props.books.length>0}}">
             <view wx:for="{{props.books}}" class="user-book" bindlongpress="deleteBook" data-title="{{item.bookId.title}}" data-id="{{item.bookId._id}}" data-index="{{item.index}}" bindtap="readBook">
               <image src="{{item.bookId.picture}}" class="book-image" mode="cover" />
@@ -52,5 +52,14 @@
       </i-tab-bar>
     </view>
   </view>
+  <!-- <i-action-sheet visible="{{ visible2 }}" actions="{{ actions2 }}" show-cancel bind:cancel="handleCancel2" bind:click="handleClickItem2" mask-closable="{{ false }}">
+    <view slot="header" style="padding: 16px">
+      <view style="color: #444;font-size: 16px">确定吗？</view>
+      <text>删除后无法恢复哦</text>
+    </view>
+  </i-action-sheet> -->
+  <!-- <i-drawer mode="right" visible="{{visible}}" bind:close="closeRight"> -->
+    <!-- <view class="right-container">单击遮罩层关闭</view> -->
+  <!-- </i-drawer> -->
   <i-toast id="toast" />
 </view>
